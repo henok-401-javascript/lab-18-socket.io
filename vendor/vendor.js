@@ -39,22 +39,23 @@ setInterval(() => {
   flowerShop.emit('pickup', payload);
   // server.to('flower-shop', emit('flowerHandler', 'FLOWER STORE!!'));
 }, 5000);
+setTimeout(() => {
+  setInterval(() => {
+    let Store = 'candy-shop';
+    let Id = faker.random.number();
+    let CustomerName = faker.name.firstName() + ' ' + faker.name.lastName();
+    let Address =
+      faker.address.streetAddress() +
+      ' ' +
+      faker.address.city() +
+      ' ' +
+      faker.address.state() +
+      ' ' +
+      faker.address.zipCode();
 
-setInterval(() => {
-  let Store = 'candy-shop';
-  let Id = faker.random.number();
-  let CustomerName = faker.name.firstName() + ' ' + faker.name.lastName();
-  let Address =
-    faker.address.streetAddress() +
-    ' ' +
-    faker.address.city() +
-    ' ' +
-    faker.address.state() +
-    ' ' +
-    faker.address.zipCode();
+    let payload = { Store, Id, CustomerName, Address };
+    candyShop.emit('pickup', payload);
 
-  let payload = { Store, Id, CustomerName, Address };
-  candyShop.emit('pickup', payload);
-
-  // server.to('candy-shop', emit('CandyHandler', 'CANDY STORE!!'));
-}, 4000);
+    // server.to('candy-shop', emit('CandyHandler', 'CANDY STORE!!'));
+  }, 5000);
+}, 3000);

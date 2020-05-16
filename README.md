@@ -6,7 +6,7 @@
 
 ### Links and Resources
 
-- [submission PR]()
+- [submission PR](https://github.com/henok-401-javascript/lab-18-socket.io/pull/2)
 
 #### How to initialize/run your application (where applicable)
 
