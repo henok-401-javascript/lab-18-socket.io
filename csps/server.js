@@ -3,8 +3,19 @@
 const sio = require('socket.io');
 const server = sio(3000);
 
+const newRoomFlower = server.of('/csps');
+
 server.on('connection', (socket) => {
   console.log('Socket', socket.id);
+});
+
+newRoomFlower.on('connection', (socket) => {
+  console.log('socket connected ', socket.id);
+
+  socket.on('join', (payload) => {
+    socket.join(payload);
+  });
+
   socket.on('pickup', (payload) => {
     console.log('Pick Up');
     console.log('Time:', new Date());
@@ -12,34 +23,12 @@ server.on('connection', (socket) => {
     console.log('OrderId:', payload.Id);
     console.log('Customer:', payload.CustomerName);
     console.log('Address:', payload.Address);
-  });
-  // socket.on('flowerHandler', (payload) => {
-  //   console.log('socket 001 joined room flower-shop', payload);
-  // });
-  socket.on('in-transit', (payload) => {
-    console.log('in-transit', payload.Id);
-  });
-  socket.on('delivered', (payload) => {
-    console.log('Delivered Order No.', payload.Id);
-  });
-});
 
-const newRoomFlower = server.of('/flower-shop');
+    newRoomFlower.to('orders').emit('pickup', payload);
+  });
 
-newRoomFlower.on('connection', (socket) => {
-  console.log('socket 001 joined room ', socket.id);
-  newRoomFlower.on('pickup', (payload) => {
-    console.log('Pick Up');
-    console.log('Time:', new Date());
-    console.log('Store:', payload.Store);
-    console.log('OrderId:', payload.Id);
-    console.log('Customer:', payload.CustomerName);
-    console.log('Address:', payload.Address);
-  });
-  newRoomFlower.on('in-transit', (payload) => {
-    console.log('in-transit', payload.Id);
-  });
   newRoomFlower.on('delivered', (payload) => {
+    newRoomFlower.to(payload.Store).emit('delivered', payload);
     console.log('Delivered Order No.', payload.Id);
   });
 });
