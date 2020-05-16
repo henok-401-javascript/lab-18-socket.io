@@ -10,7 +10,7 @@
 
 #### How to initialize/run your application (where applicable)
 
-- We have to make sure that we have three servers open,once we have that we can easly check how the socket.io works.
+- We have to make sure that we have three servers to open,once we have that we can easly check how the socket.io works.
 
 
 
