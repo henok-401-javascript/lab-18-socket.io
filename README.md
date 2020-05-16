@@ -6,19 +6,19 @@
 
 ### Links and Resources
 
-- [submission PR]()
+- [submission PR](https://github.com/henok-401-javascript/lab-18-socket.io/pull/1)
 
 #### How to initialize/run your application (where applicable)
 
-- nodemon to restart the server.
-- Once it's restart enter localhost on the browser .
-- all roles have there on capabilities, by knowing the right route . you can access the right role and capabilities .
+- We have to make sure that we have three servers open,once we have that we can easly check how the socket.io works.
+
+
 
 #### Tests
 
 - unit tests: 'npm test'
 - lint test: 'npm run lint'
-- nodemon: server refresh
+- server start: npm start
 
 #### UML
 
