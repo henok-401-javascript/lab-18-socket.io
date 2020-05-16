@@ -1,19 +1,19 @@
 'use strict';
 
 const sioc = require('socket.io-client');
-const faker = require('faker');
+const driverServer = sioc.connect('http://localhost:3000/csps');
 
-const server = sioc.connect('http://localhost:3000');
+driverServer.on('join', 'orders');
 
-setInterval(() => {
-  server.on('pickup', (payload) => {
+driverServer.on('pickup', (payload) => {
+  setInterval(() => {
     console.log('Pick up order no.', payload.Id);
-    server.emit('in-transit', payload);
-  });
-}, 1000);
-setTimeout(() => {
-  server.on('in-transit', (payload) => {
-    console.log('delivered ', payload.Id);
-    server.emit('delivered', payload);
-  });
-}, 3000);
+    driverServer.emit('in-transit', payload.Id);
+    console.log('in-transit', payload.Id);
+
+    setTimeout(() => {
+      driverServer.emit('delivered', payload.Id);
+      console.log('delivered', payload.Id);
+    }, 3000);
+  }, 1000);
+});
